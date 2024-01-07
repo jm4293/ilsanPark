@@ -1,10 +1,10 @@
-import { Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'favorite' })
 export class FavoriteEntity {
-  @PrimaryGeneratedColumn({ name: 'user_email' })
+  @PrimaryColumn({ name: 'user_email' })
   userEmail: string;
 
-  @PrimaryGeneratedColumn({ name: 'board_number' })
+  @PrimaryColumn({ name: 'board_number' })
   boardNumber: number;
 }
