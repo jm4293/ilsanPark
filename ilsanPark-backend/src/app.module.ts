@@ -2,13 +2,27 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { typeORMMysqlConfig } from './config';
+import {
+  AuthModule,
+  BoardModule,
+  DataAccessModule,
+  FileModule,
+  SearchModule,
+  UserModule,
+} from './modules';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      envFilePath: '.env',
-      isGlobal: true,
-    }),
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRoot(typeORMMysqlConfig),
+    AuthModule,
+    UserModule,
+    BoardModule,
+    SearchModule,
+    FileModule,
+    DataAccessModule,
   ],
   controllers: [AppController],
   providers: [AppService],
