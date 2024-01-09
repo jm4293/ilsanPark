@@ -25,6 +25,6 @@ export class UserEntity {
   @Column({ name: 'profile_image' })
   profileImage: string | null;
 
-  @Column({ name: 'agree_personal' })
-  agreePersonal: boolean;
+  @Column({ name: 'agreed_personal' })
+  agreedPersonal: boolean;
 }

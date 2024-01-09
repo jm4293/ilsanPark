@@ -10,7 +10,7 @@ export const typeORMMysqlConfig: TypeOrmModuleOptions = {
   username: process.env.DATABASE_USERNAME,
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
-  entities: [__dirname + '/../**/*.entity.*'],
+  entities: [__dirname + '/../**/*.entity.{js,ts}'],
   synchronize: false,
   logging: true,
 };

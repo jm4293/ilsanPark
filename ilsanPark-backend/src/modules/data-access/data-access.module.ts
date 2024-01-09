@@ -9,7 +9,15 @@ import {
   SearchLogEntity,
   BoardListViewEntity,
 } from './entities';
-import { UserRepository } from './repository';
+import {
+  BoardListViewRepository,
+  BoardRepository,
+  CommentRepository,
+  FavoriteRepository,
+  ImageRepository,
+  SearchLogRepository,
+  UserRepository,
+} from './repository';
 
 @Module({
   imports: [
@@ -25,21 +33,21 @@ import { UserRepository } from './repository';
   ],
   providers: [
     UserRepository,
-    BoardEntity,
-    CommentEntity,
-    ImageEntity,
-    FavoriteEntity,
-    SearchLogEntity,
-    BoardListViewEntity,
+    BoardRepository,
+    CommentRepository,
+    FavoriteRepository,
+    ImageRepository,
+    SearchLogRepository,
+    BoardListViewRepository,
   ],
   exports: [
     UserRepository,
-    BoardEntity,
-    CommentEntity,
-    ImageEntity,
-    FavoriteEntity,
-    SearchLogEntity,
-    BoardListViewEntity,
+    BoardRepository,
+    CommentRepository,
+    FavoriteRepository,
+    ImageRepository,
+    SearchLogRepository,
+    BoardListViewRepository,
   ],
 })
 export class DataAccessModule {}

@@ -12,7 +12,7 @@ export class BoardListViewEntity {
   content: string;
 
   @ViewColumn({ name: 'title_image' })
-  titleImage: string;
+  titleImage: string | null;
 
   @ViewColumn({ name: 'view_count' })
   viewCount: number;
