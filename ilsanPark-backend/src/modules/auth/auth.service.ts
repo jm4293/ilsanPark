@@ -1,29 +1,33 @@
 import { Injectable } from '@nestjs/common';
-import { SignUpRequestDto } from './dto/request';
-import { SignUpResponseDto } from './dto/response';
+import { SignInRequestDto, SignUpRequestDto } from './dto/request';
+import { SignInResponseDto, SignUpResponseDto } from './dto/response';
 import { UserRepository } from '../data-access/repository';
 import * as bcrypt from 'bcrypt';
 import { UserEntity } from '../data-access/entities';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly userRepository: UserRepository) {}
-  async signUp(dto: SignUpRequestDto): Promise<SignUpResponseDto | void> {
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly userRepository: UserRepository
+  ) {}
+  async signUp(dto: SignUpRequestDto): Promise<SignUpResponseDto> {
     const { email, nickname, telNumber, password } = dto;
 
     const isExistEmail = await this.userRepository.existsByEmail(email);
     if (isExistEmail) {
-      return SignUpResponseDto.duplicateEmail();
+      SignUpResponseDto.duplicateEmail();
     }
 
     const isExistNickname = await this.userRepository.existsByNickname(nickname);
     if (isExistNickname) {
-      return SignUpResponseDto.duplicateNickname();
+      SignUpResponseDto.duplicateNickname();
     }
 
-    const isExistTelNumber = await this.userRepository.existsByTelnumber(telNumber);
+    const isExistTelNumber = await this.userRepository.existsByTelNumber(telNumber);
     if (isExistTelNumber) {
-      return SignUpResponseDto.duplicateTelNumber();
+      SignUpResponseDto.duplicateTelNumber();
     }
 
     const salt = await bcrypt.genSalt();
@@ -34,5 +38,26 @@ export class AuthService {
     await this.userRepository.save(userEntity);
 
     return SignUpResponseDto.success();
+  }
+
+  async signIn(dto: SignInRequestDto): Promise<SignInResponseDto> {
+    const { email, password } = dto;
+    const userEntity = await this.userRepository.findByEmail(email);
+    if (!userEntity) {
+      SignInResponseDto.signInFail();
+    }
+
+    const encodedPassword = userEntity.password;
+
+    const isMatched = await bcrypt.compare(password, encodedPassword);
+
+    if (!isMatched) {
+      SignInResponseDto.signInFail();
+    }
+
+    const payload = { email };
+    const token = this.jwtService.sign(payload);
+
+    return SignInResponseDto.success(token);
   }
 }

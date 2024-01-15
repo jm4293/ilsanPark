@@ -33,7 +33,7 @@ export class UserRepository {
     }
   }
 
-  async existsByTelnumber(telNumber: string): Promise<boolean> {
+  async existsByTelNumber(telNumber: string): Promise<boolean> {
     try {
       const result = await this.repository.findOne({ where: { telNumber: telNumber } });
       return !!result;
@@ -43,9 +43,19 @@ export class UserRepository {
     }
   }
 
-  async save(userEntity: UserEntity): Promise<void> {
+  async findByEmail(email: string): Promise<UserEntity> {
     try {
-      await this.repository.save(userEntity);
+      const userEntity = await this.repository.findOne({ where: { email: email } });
+      return userEntity;
+    } catch (exception) {
+      this.logger.error(exception.message);
+      ResponseDto.databaseError();
+    }
+  }
+
+  async save(userEntity: UserEntity): Promise<UserEntity> {
+    try {
+      return await this.repository.save(userEntity);
     } catch (exception) {
       this.logger.error(exception.message);
       ResponseDto.databaseError();
