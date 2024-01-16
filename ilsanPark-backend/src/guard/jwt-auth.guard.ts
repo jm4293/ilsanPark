@@ -6,7 +6,7 @@ import { ResponseCode, ResponseMessage } from '../types/enums';
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
   handleRequest(err: any, user: any) {
-    if (err || !user) {
+    if (err || user) {
       throw (
         err ||
         new UnauthorizedException(
