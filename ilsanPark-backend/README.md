@@ -35,6 +35,11 @@ pnpm add passport-jwt @types/passport-jwt
 pnpm add bcrypt @nestjs/jwt @types/bcryptjs
 pnpm add mysql2
 pnpm add @nestjs/config
+pnpm add multer
+pnpm @types/multer
+pnpm @nestjs/platform-express
+pnpm uuid
+pnpm @nestjs/serve-static
 pnpm add @nestjs/swagger swagger-ui-express
 ```
 
