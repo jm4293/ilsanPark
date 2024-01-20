@@ -7,16 +7,14 @@ import * as path from 'path';
 
 config();
 
-@Controller('file')
+@Controller('/file')
 export class FileController {
   constructor(private readonly fileService: FileService) {}
 
   @Post('/upload')
   @UseInterceptors(FileInterceptor('file'))
   upload(@UploadedFile() file: Express.Multer.File): string {
-    const url = process.env.FILE_URL + file.filename;
-
-    return url;
+    return process.env.FILE_URL + file.filename;
   }
 
   @Get(':imageName')

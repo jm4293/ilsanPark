@@ -40,4 +40,13 @@ export class ImageRepository {
       ResponseDto.databaseError();
     }
   }
+
+  async findByBoardNumber(boardNumber: number) {
+    try {
+      return await this.repository.find({ where: { boardNumber } });
+    } catch (err) {
+      this.logger.error(err.message);
+      ResponseDto.databaseError();
+    }
+  }
 }

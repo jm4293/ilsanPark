@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { BoardRepository, ImageRepository, UserRepository } from '../data-access/repository';
 import { PostBoardRequestDto } from './dto/request';
 import { PostBoardResponseDto } from './dto/response';
+import { GetBoardResponseDto } from './dto/response/get-board.response.dto';
 
 @Injectable()
 export class BoardService {
@@ -23,10 +24,22 @@ export class BoardService {
 
     const { boardImageList } = dto;
     const { boardNumber } = boardEntity;
-    const imageEntityList = await this.imageRepository.createAll(boardImageList, boardNumber);
+    const imageEntityList = this.imageRepository.createAll(boardImageList, boardNumber);
 
     await this.imageRepository.saveAll(imageEntityList);
 
     return PostBoardResponseDto.success();
+  }
+
+  async getBoard(boardNumber: number): Promise<GetBoardResponseDto> {
+    const resultSet = await this.boardRepository.getBoard(boardNumber);
+
+    if (!resultSet) {
+      GetBoardResponseDto.noExistBoard();
+    }
+
+    const imageEntities = await this.imageRepository.findByBoardNumber(boardNumber);
+
+    return GetBoardResponseDto.success(resultSet, imageEntities);
   }
 }
