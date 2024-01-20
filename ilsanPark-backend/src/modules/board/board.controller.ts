@@ -1,9 +1,13 @@
 import { Body, Controller, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { BoardService } from './board.service';
-import { PatchBoardRequestDto, PostBoardRequestDto } from './dto/request';
+import { PatchBoardRequestDto, PostBoardRequestDto, PostCommentRequestDto } from './dto/request';
 import { JwtAuthGuard } from '../../guard/jwt-auth.guard';
 import { GetSignInUser } from '../../decorator';
-import { GetBoardResponseDto, PostBoardResponseDto } from './dto/response';
+import {
+  GetBoardResponseDto,
+  GetCommentListResponseDto,
+  PostBoardResponseDto,
+} from './dto/response';
 
 @Controller('/api/v1/board')
 export class BoardController {
@@ -18,9 +22,24 @@ export class BoardController {
     return this.boardService.postBoard(requestBody, email);
   }
 
+  @Post('/:boardNumber/comment')
+  @UseGuards(JwtAuthGuard)
+  postComment(
+    @Body() requestBodt: PostCommentRequestDto,
+    @Param('boardNumber') boardNumber: number,
+    @GetSignInUser() email: string
+  ) {
+    return this.boardService.postComment(requestBodt, boardNumber, email);
+  }
+
   @Get('/:boardNumber')
   getBoard(@Param('boardNumber') boardNumber: number): Promise<GetBoardResponseDto> {
     return this.boardService.getBoard(boardNumber);
+  }
+
+  @Get('/:boardNumber/comment')
+  getCommentList(@Param('boardNumber') boardNumber: number): Promise<GetCommentListResponseDto> {
+    return this.boardService.getCommentList(boardNumber);
   }
 
   @Patch('/:boardNumber')

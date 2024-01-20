@@ -43,6 +43,15 @@ export class BoardRepository {
     }
   }
 
+  async existsByBoardNumber(boardNumber: number) {
+    try {
+      return await this.repository.exists({ where: { boardNumber } });
+    } catch (err) {
+      this.logger.error(err.message);
+      ResponseDto.databaseError();
+    }
+  }
+
   async findByBoardNumber(boardNumber: number) {
     try {
       return await this.repository.findOne({ where: { boardNumber } });
