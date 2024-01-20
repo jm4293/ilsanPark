@@ -1,7 +1,5 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthGuard } from '@nestjs/passport';
-import { JwtAuthGuard } from '../../guard/jwt-auth.guard';
 import { SignInRequestDto, SignUpRequestDto } from './dto/request';
 import { SignInResponseDto, SignUpResponseDto } from './dto/response';
 
