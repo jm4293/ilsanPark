@@ -7,9 +7,9 @@ import { serveStaticModuleConfig } from './serve-static.module.config';
 
 export {
   typeORMMysqlConfig,
+  jwtModuleConfig,
   passportJwtConfig,
   ValidationPipeConfig,
-  jwtModuleConfig,
   multerModuleConfig,
   serveStaticModuleConfig,
 };
