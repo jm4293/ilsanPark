@@ -30,7 +30,7 @@ export class SignUpRequestDto {
   address: string;
 
   @IsOptional()
-  addressDetail: string;
+  addressDetail: string | null;
 
   @IsBoolean()
   @Equals(true)

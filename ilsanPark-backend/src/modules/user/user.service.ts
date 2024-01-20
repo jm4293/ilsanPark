@@ -17,10 +17,7 @@ export class UserService {
   }
 
   async getSignInUser(email: string): Promise<GetSignInUserResponseDto> {
-    console.log("hhhh', email", email);
     const UserEntity = await this.userRepository.findByEmail(email);
-
-    console.log('UserEntity', UserEntity);
 
     if (!UserEntity) {
       GetSignInUserResponseDto.noExistUser();

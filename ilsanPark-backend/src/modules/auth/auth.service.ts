@@ -31,8 +31,7 @@ export class AuthService {
     }
 
     const salt = await bcrypt.genSalt();
-    const encodedPassword = await bcrypt.hash(password, salt);
-    dto.password = encodedPassword;
+    dto.password = await bcrypt.hash(password, salt);
 
     const userEntity: UserEntity = { ...dto, profileImage: null };
     await this.userRepository.save(userEntity);
@@ -55,7 +54,7 @@ export class AuthService {
       SignInResponseDto.signInFail();
     }
 
-    const payload = { email };
+    const payload = { sub: email };
     const token = this.jwtService.sign(payload);
 
     return SignInResponseDto.success(token);
