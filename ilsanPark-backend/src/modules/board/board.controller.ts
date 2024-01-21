@@ -11,6 +11,7 @@ import {
   PostBoardResponseDto,
   PutFavoriteResponseDto,
   IncreaseViewCountResponseDto,
+  GetLatestListResponseDto,
 } from './dto/response';
 
 @Controller('/api/v1/board')
@@ -34,6 +35,11 @@ export class BoardController {
     @GetSignInUser() email: string
   ) {
     return this.boardService.postComment(requestBodt, boardNumber, email);
+  }
+
+  @Get('/latest-list')
+  getLatestList(): Promise<GetLatestListResponseDto> {
+    return this.boardService.getLatestList();
   }
 
   @Get('/:boardNumber')

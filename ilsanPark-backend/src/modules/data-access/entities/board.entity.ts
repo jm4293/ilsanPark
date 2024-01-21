@@ -17,7 +17,7 @@ export class BoardEntity {
   @Column({ name: 'favorite_count' })
   favoriteCount: number;
 
-  @Column({ name: 'commnet_count' })
+  @Column({ name: 'comment_count' })
   commentCount: number;
 
   @Column({ name: 'view_count' })
