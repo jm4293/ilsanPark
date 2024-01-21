@@ -8,6 +8,7 @@ import {
 } from '../data-access/repository';
 import { PatchBoardRequestDto, PostBoardRequestDto, PostCommentRequestDto } from './dto/request';
 import {
+  DeleteBoardResponseDto,
   GetBoardResponseDto,
   GetCommentListResponseDto,
   GetFavoriteListResponseDto,
@@ -176,5 +177,32 @@ export class BoardService {
     await this.boardRepository.save(boardEntity);
 
     return PutFavoriteResponseDto.success();
+  }
+
+  async deleteBoard(boardNumber: number, email: string): Promise<DeleteBoardResponseDto> {
+    const isExistUser = await this.userRepository.existsByEmail(email);
+
+    if (!isExistUser) {
+      DeleteBoardResponseDto.noExistUser();
+    }
+
+    const boardEntity = await this.boardRepository.findByBoardNumber(boardNumber);
+
+    if (!boardEntity) {
+      DeleteBoardResponseDto.noExistBoard();
+    }
+
+    const isWriter = boardEntity.writerEmail === email;
+
+    if (!isWriter) {
+      DeleteBoardResponseDto.noPermission();
+    }
+
+    await this.imageRepository.deleteByBoardNumber(boardNumber);
+    await this.commentRepository.deleteByBoardNumber(boardNumber);
+    await this.favoriteRepository.deleteByBoardNumber(boardNumber);
+    await this.boardRepository.deleteByBoardNumber(boardNumber);
+
+    return DeleteBoardResponseDto.success();
   }
 }

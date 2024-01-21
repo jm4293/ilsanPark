@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Param, Patch, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, UseGuards } from '@nestjs/common';
 import { BoardService } from './board.service';
 import { PatchBoardRequestDto, PostBoardRequestDto, PostCommentRequestDto } from './dto/request';
 import { JwtAuthGuard } from '../../guard/jwt-auth.guard';
 import { GetSignInUser } from '../../decorator';
 import {
+  DeleteBoardResponseDto,
   GetBoardResponseDto,
   GetCommentListResponseDto,
   GetFavoriteListResponseDto,
@@ -66,5 +67,14 @@ export class BoardController {
     @GetSignInUser() email: string
   ): Promise<PutFavoriteResponseDto> {
     return this.boardService.putFavorite(boardNumber, email);
+  }
+
+  @Delete('/:boardNumber')
+  @UseGuards(JwtAuthGuard)
+  deleteBoard(
+    @Param('boardNumber') boardNumber: number,
+    @GetSignInUser() email: string
+  ): Promise<DeleteBoardResponseDto> {
+    return this.boardService.deleteBoard(boardNumber, email);
   }
 }

@@ -60,4 +60,13 @@ export class CommentRepository {
       ResponseDto.databaseError();
     }
   }
+
+  async deleteByBoardNumber(boardNumber: number) {
+    try {
+      return await this.repository.delete({ boardNumber });
+    } catch (err) {
+      this.logger.error(err.message);
+      ResponseDto.databaseError();
+    }
+  }
 }
