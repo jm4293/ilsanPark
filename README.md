@@ -4,17 +4,23 @@
 
 ## 프로젝트 구성
 
+### package manager
+
+* #### pnpm
+
 ### frontend
 
 * #### React
 * #### Zustand
 * #### emotion
+* #### react query
 
 ### backend
 
 * #### NestJS
 * #### TypeORM
 * #### MySQL
+* #### docker
 
 ### mobile
 
