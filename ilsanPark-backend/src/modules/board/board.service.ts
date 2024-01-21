@@ -108,6 +108,12 @@ export class BoardService {
     return GetLatestListResponseDto.success(boardListViewEntities);
   }
 
+  async getTop3List(): Promise<GetLatestListResponseDto> {
+    const boardListViewEntities = await this.boardListViewRepository.getTop3List();
+
+    return GetLatestListResponseDto.success(boardListViewEntities);
+  }
+
   async getCommentList(boardNumber: number): Promise<GetCommentListResponseDto> {
     const isExistBoard = await this.boardRepository.existsByBoardNumber(boardNumber);
 

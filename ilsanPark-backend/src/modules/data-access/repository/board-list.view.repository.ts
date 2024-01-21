@@ -1,8 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BoardListViewEntity } from '../entities';
-import { DataSource, Repository } from 'typeorm';
+import { Between, DataSource, Repository } from 'typeorm';
 import { ResponseDto } from '../../../types/classes';
+import { aweekAgoDatetime, nowDatetime } from '../../../utils';
 
 @Injectable()
 export class BoardListViewRepository {
@@ -17,6 +18,24 @@ export class BoardListViewRepository {
   async getLatestList() {
     try {
       return this.repository.find({ order: { writeDatetime: 'DESC' } });
+    } catch (err) {
+      this.logger.error(err);
+      ResponseDto.databaseError();
+    }
+  }
+
+  async getTop3List() {
+    try {
+      return this.repository.find({
+        where: { writeDatetime: Between(aweekAgoDatetime, nowDatetime) },
+        order: {
+          favoriteCount: 'DESC',
+          commentCount: 'DESC',
+          viewCount: 'DESC',
+          writeDatetime: 'DESC',
+        },
+        take: 3,
+      });
     } catch (err) {
       this.logger.error(err);
       ResponseDto.databaseError();

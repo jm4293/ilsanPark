@@ -42,6 +42,11 @@ export class BoardController {
     return this.boardService.getLatestList();
   }
 
+  @Get('/top-3')
+  getTop3List(): Promise<GetLatestListResponseDto> {
+    return this.boardService.getTop3List();
+  }
+
   @Get('/:boardNumber')
   getBoard(@Param('boardNumber') boardNumber: number): Promise<GetBoardResponseDto> {
     return this.boardService.getBoard(boardNumber);
