@@ -17,6 +17,7 @@ import {
   PostCommentResponseDto,
   PutFavoriteResponseDto,
 } from './dto/response';
+import { IncreaseViewCountResponseDto } from './dto/response/increase-view-count.response.dto';
 
 @Injectable()
 export class BoardService {
@@ -83,6 +84,19 @@ export class BoardService {
     const imageEntities = await this.imageRepository.findByBoardNumber(boardNumber);
 
     return GetBoardResponseDto.success(resultSet, imageEntities);
+  }
+
+  async increaseViewCount(boardNumber: number): Promise<IncreaseViewCountResponseDto> {
+    const boardEntity = await this.boardRepository.findByBoardNumber(boardNumber);
+
+    if (!boardEntity) {
+      IncreaseViewCountResponseDto.noExistBoard();
+    }
+
+    boardEntity.viewCount += 1;
+    await this.boardRepository.save(boardEntity);
+
+    return IncreaseViewCountResponseDto.success();
   }
 
   async getCommentList(boardNumber: number): Promise<GetCommentListResponseDto> {

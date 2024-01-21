@@ -10,6 +10,7 @@ import {
   GetFavoriteListResponseDto,
   PostBoardResponseDto,
   PutFavoriteResponseDto,
+  IncreaseViewCountResponseDto,
 } from './dto/response';
 
 @Controller('/api/v1/board')
@@ -38,6 +39,13 @@ export class BoardController {
   @Get('/:boardNumber')
   getBoard(@Param('boardNumber') boardNumber: number): Promise<GetBoardResponseDto> {
     return this.boardService.getBoard(boardNumber);
+  }
+
+  @Get('/:boardNumber/increase-view-count')
+  increaseViewCount(
+    @Param('boardNumber') boardNumber: number
+  ): Promise<IncreaseViewCountResponseDto> {
+    return this.boardService.increaseViewCount(boardNumber);
   }
 
   @Get('/:boardNumber/comment-list')
