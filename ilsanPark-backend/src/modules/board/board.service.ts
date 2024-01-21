@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import {
   BoardRepository,
   CommentRepository,
+  FavoriteRepository,
   ImageRepository,
   UserRepository,
 } from '../data-access/repository';
@@ -9,9 +10,11 @@ import { PatchBoardRequestDto, PostBoardRequestDto, PostCommentRequestDto } from
 import {
   GetBoardResponseDto,
   GetCommentListResponseDto,
+  GetFavoriteListResponseDto,
   PatchBoardResponseDto,
   PostBoardResponseDto,
   PostCommentResponseDto,
+  PutFavoriteResponseDto,
 } from './dto/response';
 
 @Injectable()
@@ -20,7 +23,8 @@ export class BoardService {
     private readonly userRepository: UserRepository,
     private readonly boardRepository: BoardRepository,
     private readonly imageRepository: ImageRepository,
-    private readonly commentRepository: CommentRepository
+    private readonly commentRepository: CommentRepository,
+    private readonly favoriteRepository: FavoriteRepository
   ) {}
 
   async postBoard(dto: PostBoardRequestDto, email: string): Promise<PostBoardResponseDto> {
@@ -92,6 +96,18 @@ export class BoardService {
     return GetCommentListResponseDto.success(resultSets);
   }
 
+  async getFavoriteList(boardNumber: number): Promise<GetFavoriteListResponseDto> {
+    const isExistBoard = await this.boardRepository.existsByBoardNumber(boardNumber);
+
+    if (!isExistBoard) {
+      GetFavoriteListResponseDto.noExistBoard();
+    }
+
+    const resultSets = await this.favoriteRepository.getFavoriteList(boardNumber);
+
+    return GetFavoriteListResponseDto.success(resultSets);
+  }
+
   async patchBoard(
     dto: PatchBoardRequestDto,
     boardNumber: number,
@@ -128,5 +144,37 @@ export class BoardService {
     await this.imageRepository.saveAll(imageEntityList);
 
     return PatchBoardResponseDto.success();
+  }
+
+  async putFavorite(boardNumber: number, email: string): Promise<PutFavoriteResponseDto> {
+    const isExistUser = await this.userRepository.existsByEmail(email);
+
+    if (!isExistUser) {
+      PutFavoriteResponseDto.noExistUser();
+    }
+
+    const boardEntity = await this.boardRepository.findByBoardNumber(boardNumber);
+
+    if (!boardEntity) {
+      PutFavoriteResponseDto.noExistBoard();
+    }
+
+    const isExistFavorite = await this.favoriteRepository.existsByBoardNumberAndUserEmail(
+      boardNumber,
+      email
+    );
+
+    if (isExistFavorite) {
+      await this.favoriteRepository.deleteByBoardNumberAndUserEmail(boardNumber, email);
+      boardEntity.favoriteCount -= 1;
+    } else {
+      const favoriteEntity = this.favoriteRepository.create(boardNumber, email);
+      await this.favoriteRepository.save(favoriteEntity);
+      boardEntity.favoriteCount += 1;
+    }
+
+    await this.boardRepository.save(boardEntity);
+
+    return PutFavoriteResponseDto.success();
   }
 }
