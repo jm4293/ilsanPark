@@ -3,9 +3,10 @@ import {
   GetSignInUserResponseDto,
   GetUserResponseDto,
   PatchNicknameResponseDto,
+  PatchProfileImageResponseDto,
 } from './dto/response';
 import { UserRepository } from '../data-access/repository';
-import { PatchNicknameRequestDto } from './dto/request';
+import { PatchNicknameRequestDto, PatchProfileImageRequestDto } from './dto/request';
 
 @Injectable()
 export class UserService {
@@ -52,5 +53,22 @@ export class UserService {
     await this.userRepository.save(userEntity);
 
     return PatchNicknameResponseDto.success();
+  }
+
+  async patchProfileImage(
+    dto: PatchProfileImageRequestDto,
+    email: string
+  ): Promise<PatchProfileImageResponseDto> {
+    const userEntity = await this.userRepository.findByEmail(email);
+
+    if (!userEntity) {
+      PatchProfileImageResponseDto.noExistUser();
+    }
+
+    const { profileImage } = dto;
+    userEntity.profileImage = profileImage ? profileImage : null;
+    await this.userRepository.save(userEntity);
+
+    return PatchProfileImageResponseDto.success();
   }
 }

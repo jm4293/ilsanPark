@@ -4,10 +4,11 @@ import {
   GetSignInUserResponseDto,
   GetUserResponseDto,
   PatchNicknameResponseDto,
+  PatchProfileImageResponseDto,
 } from './dto/response';
 import { GetSignInUser } from '../../decorator';
 import { JwtAuthGuard } from '../../guard/jwt-auth.guard';
-import { PatchNicknameRequestDto } from './dto/request';
+import { PatchNicknameRequestDto, PatchProfileImageRequestDto } from './dto/request';
 
 @Controller('/api/v1/user')
 export class UserController {
@@ -31,5 +32,14 @@ export class UserController {
     @GetSignInUser() email: string
   ): Promise<PatchNicknameResponseDto> {
     return this.userService.patchNickname(requestBody, email);
+  }
+
+  @Patch('/profile-image')
+  @UseGuards(JwtAuthGuard)
+  patchProfileImage(
+    @Body() requestBody: PatchProfileImageRequestDto,
+    @GetSignInUser() email: string
+  ): Promise<PatchProfileImageResponseDto> {
+    return this.userService.patchProfileImage(requestBody, email);
   }
 }
