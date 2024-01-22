@@ -5,6 +5,7 @@ import {
   CommentRepository,
   FavoriteRepository,
   ImageRepository,
+  SearchLogRepository,
   UserRepository,
 } from '../data-access/repository';
 import { PatchBoardRequestDto, PostBoardRequestDto, PostCommentRequestDto } from './dto/request';
@@ -14,12 +15,13 @@ import {
   GetCommentListResponseDto,
   GetFavoriteListResponseDto,
   GetLatestListResponseDto,
+  GetSearchListResponseDto,
+  IncreaseViewCountResponseDto,
   PatchBoardResponseDto,
   PostBoardResponseDto,
   PostCommentResponseDto,
   PutFavoriteResponseDto,
 } from './dto/response';
-import { IncreaseViewCountResponseDto } from './dto/response/increase-view-count.response.dto';
 
 @Injectable()
 export class BoardService {
@@ -29,7 +31,8 @@ export class BoardService {
     private readonly imageRepository: ImageRepository,
     private readonly commentRepository: CommentRepository,
     private readonly favoriteRepository: FavoriteRepository,
-    private readonly boardListViewRepository: BoardListViewRepository
+    private readonly boardListViewRepository: BoardListViewRepository,
+    private readonly searchLogRepository: SearchLogRepository
   ) {}
 
   async postBoard(dto: PostBoardRequestDto, email: string): Promise<PostBoardResponseDto> {
@@ -112,6 +115,26 @@ export class BoardService {
     const boardListViewEntities = await this.boardListViewRepository.getTop3List();
 
     return GetLatestListResponseDto.success(boardListViewEntities);
+  }
+
+  async getSearchList(
+    searchWord: string,
+    preSearchWord: string | null
+  ): Promise<GetSearchListResponseDto> {
+    console.log('searchWord', searchWord);
+    console.log('preSearchWord', preSearchWord);
+
+    const boardListViewEntities = await this.boardListViewRepository.getSearchList(searchWord);
+
+    let searchLogEntity = this.searchLogRepository.create(searchWord, preSearchWord ?? null, false);
+    await this.searchLogRepository.save(searchLogEntity);
+
+    if (preSearchWord) {
+      searchLogEntity = this.searchLogRepository.create(preSearchWord, searchWord, true);
+      await this.searchLogRepository.save(searchLogEntity);
+    }
+
+    return GetSearchListResponseDto.success(boardListViewEntities);
   }
 
   async getCommentList(boardNumber: number): Promise<GetCommentListResponseDto> {

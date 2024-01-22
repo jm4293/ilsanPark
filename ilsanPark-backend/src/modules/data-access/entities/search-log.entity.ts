@@ -9,7 +9,7 @@ export class SearchLogEntity {
   searchWord: string;
 
   @Column({ name: 'relation_word' })
-  relationWord: string;
+  relationWord: string | null;
 
   @Column({ name: 'relation' })
   relation: boolean;

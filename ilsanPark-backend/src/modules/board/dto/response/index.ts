@@ -8,6 +8,8 @@ import { GetFavoriteListResponseDto } from './get-favorite-list.response.dto';
 import { DeleteBoardResponseDto } from './delete-board.response.dto';
 import { IncreaseViewCountResponseDto } from './increase-view-count.response.dto';
 import { GetLatestListResponseDto } from './get-latest-list.response.dto';
+import { GetSearchListResponseDto } from './get-search-list-response.dto';
+import { GetTop3ListResponseDto } from './get-top-3-list.response.dto';
 
 export {
   PostBoardResponseDto,
@@ -20,4 +22,6 @@ export {
   DeleteBoardResponseDto,
   IncreaseViewCountResponseDto,
   GetLatestListResponseDto,
+  GetSearchListResponseDto,
+  GetTop3ListResponseDto,
 };

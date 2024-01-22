@@ -12,6 +12,7 @@ import {
   PutFavoriteResponseDto,
   IncreaseViewCountResponseDto,
   GetLatestListResponseDto,
+  GetSearchListResponseDto,
 } from './dto/response';
 
 @Controller('/api/v1/board')
@@ -45,6 +46,14 @@ export class BoardController {
   @Get('/top-3')
   getTop3List(): Promise<GetLatestListResponseDto> {
     return this.boardService.getTop3List();
+  }
+
+  @Get(['/search-list/:searchWord', '/search-list/:searchWord/:preSearchWord'])
+  getSearchList(
+    @Param('searchWord') searchWord: string,
+    @Param('preSearchWord') preSearchWord: string
+  ): Promise<GetSearchListResponseDto> {
+    return this.boardService.getSearchList(searchWord, preSearchWord);
   }
 
   @Get('/:boardNumber')

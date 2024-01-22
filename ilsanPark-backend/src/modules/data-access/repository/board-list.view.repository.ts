@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BoardListViewEntity } from '../entities';
-import { Between, DataSource, Repository } from 'typeorm';
+import { Between, DataSource, Like, Repository } from 'typeorm';
 import { ResponseDto } from '../../../types/classes';
 import { aweekAgoDatetime, nowDatetime } from '../../../utils';
 
@@ -35,6 +35,18 @@ export class BoardListViewRepository {
           writeDatetime: 'DESC',
         },
         take: 3,
+      });
+    } catch (err) {
+      this.logger.error(err);
+      ResponseDto.databaseError();
+    }
+  }
+
+  async getSearchList(searchWord: string) {
+    try {
+      return this.repository.find({
+        where: [{ title: Like(`%${searchWord}%`) }, { content: Like(`%${searchWord}%`) }],
+        order: { writeDatetime: 'DESC' },
       });
     } catch (err) {
       this.logger.error(err);
