@@ -53,4 +53,13 @@ export class BoardListViewRepository {
       ResponseDto.databaseError();
     }
   }
+
+  async getUserBoardList(writerEmail: string) {
+    try {
+      return this.repository.find({ where: { writerEmail }, order: { writeDatetime: 'DESC' } });
+    } catch (err) {
+      this.logger.error(err);
+      ResponseDto.databaseError();
+    }
+  }
 }

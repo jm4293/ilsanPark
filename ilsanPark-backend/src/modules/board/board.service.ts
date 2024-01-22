@@ -16,6 +16,7 @@ import {
   GetFavoriteListResponseDto,
   GetLatestListResponseDto,
   GetSearchListResponseDto,
+  GetUserBoardListResponseDto,
   IncreaseViewCountResponseDto,
   PatchBoardResponseDto,
   PostBoardResponseDto,
@@ -121,9 +122,6 @@ export class BoardService {
     searchWord: string,
     preSearchWord: string | null
   ): Promise<GetSearchListResponseDto> {
-    console.log('searchWord', searchWord);
-    console.log('preSearchWord', preSearchWord);
-
     const boardListViewEntities = await this.boardListViewRepository.getSearchList(searchWord);
 
     let searchLogEntity = this.searchLogRepository.create(searchWord, preSearchWord ?? null, false);
@@ -135,6 +133,18 @@ export class BoardService {
     }
 
     return GetSearchListResponseDto.success(boardListViewEntities);
+  }
+
+  async getUserBoardList(email: string): Promise<GetUserBoardListResponseDto> {
+    const isExistUSer = this.userRepository.existsByEmail(email);
+
+    if (!isExistUSer) {
+      GetUserBoardListResponseDto.noExistUser();
+    }
+
+    const boardListViewEntities = await this.boardListViewRepository.getUserBoardList(email);
+
+    return GetUserBoardListResponseDto.success(boardListViewEntities);
   }
 
   async getCommentList(boardNumber: number): Promise<GetCommentListResponseDto> {

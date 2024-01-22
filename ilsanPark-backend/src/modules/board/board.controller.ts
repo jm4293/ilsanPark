@@ -13,6 +13,7 @@ import {
   IncreaseViewCountResponseDto,
   GetLatestListResponseDto,
   GetSearchListResponseDto,
+  GetUserBoardListResponseDto,
 } from './dto/response';
 
 @Controller('/api/v1/board')
@@ -54,6 +55,11 @@ export class BoardController {
     @Param('preSearchWord') preSearchWord: string
   ): Promise<GetSearchListResponseDto> {
     return this.boardService.getSearchList(searchWord, preSearchWord);
+  }
+
+  @Get('/user-board-list/:email')
+  getUserBoardList(@Param('email') email: string): Promise<GetUserBoardListResponseDto> {
+    return this.boardService.getUserBoardList(email);
   }
 
   @Get('/:boardNumber')
