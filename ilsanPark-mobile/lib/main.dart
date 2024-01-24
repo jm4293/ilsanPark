@@ -28,51 +28,84 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final postList = [
+    {
+      "title": "Sample Title 1",
+      "color": Colors.blue,
+    },
+    {
+      "title": "Sample Title 2",
+      "color": Colors.green,
+    },
+    {
+      "title": "Sample Title 3",
+      "color": Colors.red,
+    },
+    {
+      "title": "Sample Title 4",
+      "color": Colors.blue,
+    },
+    {
+      "title": "Sample Title 5",
+      "color": Colors.blue,
+    },
+    {
+      "title": "Sample Title 6",
+      "color": Colors.blue,
+    },
+    {
+      "title": "Sample Title 7",
+      "color": Colors.blue,
+    },
+    {
+      "title": "Sample Title 8",
+      "color": Colors.blue,
+    },
+    {
+      "title": "Sample Title 9",
+      "color": Colors.blue,
+    },
+    {
+      "title": "Sample Title 10",
+      "color": Colors.blue,
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Test Title"),
+      appBar: AppBar(title: const Text("Test Title")),
+      body: ListView.builder(
+        itemCount: postList.length,
+        itemBuilder: (BuildContext context, int idx) {
+          return postContainer(
+            title: postList[idx]["title"] as String,
+          );
+        },
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: const <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text(
-                "Drawer Header",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
+    );
+  }
+
+  Widget postContainer({String title = ""}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(10),
+          child: Text(
+            title,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
             ),
-            ListTile(
-              leading: Icon(Icons.message),
-              title: Text("Message"),
-            ),
-            ListTile(
-              leading: Icon(Icons.account_circle),
-              title: Text("Profile"),
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text("Settings"),
-            ),
-          ],
+          ),
         ),
-      ),
-      body: const Center(
-        child: Text("Hello World"),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => print("click"),
-        tooltip: "Increment",
-        child: const Icon(Icons.add),
-      )
+        Container(
+          width: MediaQuery.of(context).size.width,
+          height: 200,
+          color: Colors.blue,
+        ),
+      ],
     );
   }
 }
