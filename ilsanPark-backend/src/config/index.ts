@@ -4,6 +4,7 @@ import { ValidationPipeConfig } from './validation.pipe.config';
 import { jwtModuleConfig } from './jwt.module.config';
 import { multerModuleConfig } from './multer.module.config';
 import { serveStaticModuleConfig } from './serve-static.module.config';
+import { serverStaticConfig } from './serverStatic.config';
 
 export {
   typeORMMysqlConfig,
@@ -12,4 +13,5 @@ export {
   ValidationPipeConfig,
   multerModuleConfig,
   serveStaticModuleConfig,
+  serverStaticConfig,
 };

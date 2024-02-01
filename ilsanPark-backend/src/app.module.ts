@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { typeORMMysqlConfig } from './config';
+import { serverStaticConfig, typeORMMysqlConfig } from './config';
 import {
   AuthModule,
   BoardModule,
@@ -17,6 +17,7 @@ import {
   imports: [
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot(typeORMMysqlConfig),
+    // ServeStaticModule.forRoot(serverStaticConfig),
     AuthModule,
     UserModule,
     BoardModule,
