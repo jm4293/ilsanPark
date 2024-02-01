@@ -1,4 +1,4 @@
-package com.example.ilsan_park_flutter
+package com.example.ilsanpark_mobile
 
 import io.flutter.embedding.android.FlutterActivity
 
