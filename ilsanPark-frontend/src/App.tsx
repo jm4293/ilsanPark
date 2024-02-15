@@ -1,10 +1,13 @@
 import React from 'react';
-import { buttonBlue } from './styles/button/button.style';
+import { Global } from '@emotion/react';
+import { globalStyle } from './styles/globalStyle';
+import { Layout } from './components/layout/layout';
 
 function App() {
   return (
     <>
-      <div css={buttonBlue}>dd</div>
+      <Global styles={globalStyle} />
+      <Layout />
     </>
   );
 }
