@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    font-size: 14px;
+    background-color: #ddd;
+}
+
+@media (min-width: 1024px) {
+    html,
+    body {
+        width: 100vw;
+    }
+}
+
+input,
+select,
+textarea,
+button {
+    cursor: pointer;
+}
+
+.d-flex {
+    display: flex;
+}
+.flex-column {
+    flex-direction: column;
+}
+.justify-center {
+    justify-content: center;
+}
+.align-center {
+    align-items: center;
+}
+.g-10 {
+    gap: 1rem;
+}
+.g-20{
+    gap: 2rem;
+}
+
