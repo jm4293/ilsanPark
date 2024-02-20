@@ -64,6 +64,9 @@ dependencies:
     version: 4.5.0(@types/react@18.2.55)(react@18.2.0)
 
 devDependencies:
+  '@babel/preset-react':
+    specifier: ^7.23.3
+    version: 7.23.3(@babel/core@7.23.9)
   '@emotion/babel-preset-css-prop':
     specifier: ^11.11.0
     version: 11.11.0(@babel/core@7.23.9)
@@ -1162,7 +1165,6 @@ packages:
     dependencies:
       '@babel/core': 7.23.9
       '@babel/helper-plugin-utils': 7.22.5
-    dev: false
 
   /@babel/plugin-transform-react-jsx-development@7.22.5(@babel/core@7.23.9):
     resolution: {integrity: sha512-bDhuzwWMuInwCYeDeMzyi7TaBgRQei6DqxhbyniL7/VG4RSS7HtSL2QbY4eESy1KJqlWt8g3xeEBGPuo+XqC8A==}
@@ -1172,7 +1174,6 @@ packages:
     dependencies:
       '@babel/core': 7.23.9
       '@babel/plugin-transform-react-jsx': 7.23.4(@babel/core@7.23.9)
-    dev: false
 
   /@babel/plugin-transform-react-jsx@7.23.4(@babel/core@7.23.9):
     resolution: {integrity: sha512-5xOpoPguCZCRbo/JeHlloSkTA8Bld1J/E1/kLfD1nsuiW1m8tduTA1ERCgIZokDflX/IBzKcqR3l7VlRgiIfHA==}
@@ -1196,7 +1197,6 @@ packages:
       '@babel/core': 7.23.9
       '@babel/helper-annotate-as-pure': 7.22.5
       '@babel/helper-plugin-utils': 7.22.5
-    dev: false
 
   /@babel/plugin-transform-regenerator@7.23.3(@babel/core@7.23.9):
     resolution: {integrity: sha512-KP+75h0KghBMcVpuKisx3XTu9Ncut8Q8TuvGO4IhY+9D5DFEckQefOuIsB/gQ2tG71lCke4NMrtIPS8pOj18BQ==}
@@ -1458,7 +1458,6 @@ packages:
       '@babel/plugin-transform-react-jsx': 7.23.4(@babel/core@7.23.9)
       '@babel/plugin-transform-react-jsx-development': 7.22.5(@babel/core@7.23.9)
       '@babel/plugin-transform-react-pure-annotations': 7.23.3(@babel/core@7.23.9)
-    dev: false
 
   /@babel/preset-typescript@7.23.3(@babel/core@7.23.9):
     resolution: {integrity: sha512-17oIGVlqz6CchO9RFYn5U6ZpWRZIngayYCtrPRSgANSwC2V1Jb+iP74nVxzzXJte8b8BYxrL1yY96xfhTBrNNQ==}

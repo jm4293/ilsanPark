@@ -31,8 +31,22 @@ export const main_style = css`
 export const footer_style = css`
   height: 7.7rem;
   padding: 1.2rem 0 2.4rem;
-  border: 1px solid green;
-  font-size: 2rem;
   display: flex;
+  justify-content: space-between;
   align-items: center;
+`;
+
+export const footer_item_style = css`
+  cursor: pointer;
+  width: calc(100% / 5);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  & > div {
+    font-size: 1.4rem;
+    margin-top: 0.4rem;
+  }
 `;

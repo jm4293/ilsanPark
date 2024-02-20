@@ -48,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.23.3",
     "@emotion/babel-preset-css-prop": "^11.11.0"
   }
 }

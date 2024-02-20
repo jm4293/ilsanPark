@@ -8,6 +8,7 @@ html,
 body {
     font-size: 14px;
     background-color: #ddd;
+    font-family: "NotoSansMedium";
 }
 
 @media (min-width: 1024px) {
