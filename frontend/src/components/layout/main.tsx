@@ -1,10 +1,13 @@
 import React from 'react';
 import { main_style } from '../../styles/layout/layout_style';
+import { Outlet } from 'react-router-dom';
 
 export const Main = () => {
   return (
     <>
-      <div css={main_style}>Main</div>
+      <div css={main_style}>
+        <Outlet />
+      </div>
     </>
   );
 };
