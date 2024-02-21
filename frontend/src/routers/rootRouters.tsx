@@ -7,9 +7,12 @@ import { ChargingStation } from '../pages/chargingStation/chargingStation';
 import { Wallet } from '../pages/wallet/wallet';
 import { MyCar } from '../pages/myCar/myCar';
 import { Setting } from '../pages/setting/setting';
+import { useRouterStore } from '../data/zustand/router.store';
 
 export const RootRouters = () => {
-  const BASE_URL = process.env.REACT_APP_BASE_URL;
+  const BASE_URL = useRouterStore((state) => state.base_url);
+
+  console.log('BASE_URL', BASE_URL);
 
   return (
     <Routes>

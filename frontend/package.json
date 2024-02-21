@@ -1,8 +1,7 @@
 {
-  "name": "ilsan-park",
+  "name": "ilsan-park-frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "ilsanpark",
   "dependencies": {
     "@craco/craco": "^7.1.0",
     "@emotion/react": "^11.11.3",
