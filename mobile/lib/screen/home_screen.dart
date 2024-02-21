@@ -4,7 +4,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class HomeScreen extends StatelessWidget {
   WebViewController webViewController = WebViewController()
-    ..loadRequest(Uri.parse("http://192.168.0.62:4100"))
+    ..loadRequest(Uri.parse("http://192.168.0.62:4100/ilsanpark"))
     ..setJavaScriptMode(JavaScriptMode.unrestricted);
 
   @override
