@@ -5,8 +5,8 @@ import { IoIosWallet } from 'react-icons/io';
 import { FaCar } from 'react-icons/fa6';
 import { BsThreeDots } from 'react-icons/bs';
 
-import { footer_item_style, footer_style } from '../../styles/layout/layout_style';
-import { useRouterStore } from '../../data/zustand/router.store';
+import { footer_item_style, footer_style } from '../../styles/layout/layout.style';
+import { useRouterStore } from '../../store/zustand/router.store';
 import { useNavigate } from 'react-router-dom';
 
 export const Footer = () => {

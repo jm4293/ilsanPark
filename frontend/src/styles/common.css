@@ -17,6 +17,16 @@ body {
         width: 100vw;
     }
 }
+@media (min-width: 1024px) {
+    html,
+    body {
+        position: absolute;
+        width: 1024px;
+        max-width: 1024px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
 
 input,
 select,
@@ -43,4 +53,22 @@ button {
 .g-20{
     gap: 2rem;
 }
+
+.slick-slider  {
+    width: 100%;
+    height: 100vh;
+}
+
+.slick-list > div {
+    width: 100%;
+    height: 100%;
+}
+
+.slick-dots {
+    top: 97vh;
+}
+
+
+
+
 

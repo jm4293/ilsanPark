@@ -1,15 +1,5 @@
 import { css } from '@emotion/react';
 
-export const layout_style = css`
-  @media (min-width: 1024px) {
-    position: absolute;
-    width: 1024px;
-    max-width: 1024px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-`;
-
 export const header_style = css`
   height: 4.8rem;
   padding: 0 1rem;

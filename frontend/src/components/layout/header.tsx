@@ -2,7 +2,7 @@ import React from 'react';
 import { AiOutlineUser } from 'react-icons/ai';
 import { AiOutlineBell } from 'react-icons/ai';
 import { MdOutlineDarkMode } from 'react-icons/md';
-import { header_style } from '../../styles/layout/layout_style';
+import { header_style } from '../../styles/layout/layout.style';
 
 export const Header = () => {
   return (
